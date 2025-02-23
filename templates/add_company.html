@@ -1,0 +1,15 @@
+{{ define "content" }}
+<h1>Добавить компанию</h1>
+<form action="/save-company" method="post">
+    <label for="name">Название компании:</label>
+    <input type="text" id="name" name="name" required>
+
+    <label for="website">Веб-сайт:</label>
+    <input type="url" id="website" name="website">
+
+    <label for="contact_info">Контактная информация:</label>
+    <textarea id="contact_info" name="contact_info"></textarea>
+
+    <button type="submit">Сохранить</button>
+</form>
+{{ end }}

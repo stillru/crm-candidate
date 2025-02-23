@@ -1,0 +1,23 @@
+{{ define "content" }}
+<h1>Статус обращений</h1>
+<table>
+    <thead>
+        <tr>
+            <th>Компания</th>
+            <th>Рекрутер</th>
+            <th>Статус</th>
+            <th>Дата</th>
+        </tr>
+    </thead>
+    <tbody>
+        {{ range .Interactions }}
+        <tr>
+            <td>{{ .CompanyName }}</td>
+            <td>{{ .RecruiterName }}</td>
+            <td>{{ .Status }}</td>
+            <td>{{ .Date }}</td>
+        </tr>
+        {{ end }}
+    </tbody>
+</table>
+{{ end }}

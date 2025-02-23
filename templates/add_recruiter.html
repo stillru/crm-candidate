@@ -1,0 +1,22 @@
+{{ define "content" }}
+<h1>Добавить рекрутера</h1>
+<form action="/save-recruiter" method="post">
+    <label for="name">Имя рекрутера:</label>
+    <input type="text" id="name" name="name" required>
+
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email" required>
+
+    <label for="phone">Телефон:</label>
+    <input type="tel" id="phone" name="phone">
+
+    <label for="company_id">Компания:</label>
+    <select id="company_id" name="company_id" required>
+        {{ range .Companies }}
+        <option value="{{ .ID }}">{{ .Name }}</option>
+        {{ end }}
+    </select>
+
+    <button type="submit">Сохранить</button>
+</form>
+{{ end }}
