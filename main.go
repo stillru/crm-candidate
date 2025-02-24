@@ -1,28 +1,30 @@
 package main
 
 import (
-    "crm-candidate/db"
-    "crm-candidate/handlers"
-    "github.com/gin-gonic/gin"
+	"crm-candidate/db"
+	"crm-candidate/handlers"
+
+	"github.com/gin-gonic/gin"
 )
 
 func main() {
-    if err := db.InitDB(); err != nil {
-        panic(err)
-    }
+	// Инициализация базы данных
+	if err := db.InitDB(); err != nil {
+		panic(err)
+	}
 
-    r := gin.Default()
+	// Инициализация Gin
+	r := gin.Default()
+	r.LoadHTMLGlob("templates/*")
+	r.Static("/static", "./static")
 
-    r.LoadHTMLGlob("templates/*")
+	// Маршруты
+	r.GET("/", handlers.IndexHandler)
+	r.GET("/add-company", handlers.AddCompanyHandler)
+	r.GET("/add-recruiter", handlers.AddRecruiterHandler)
+	r.GET("/status", handlers.StatusHandler)
+	r.POST("/save-company", handlers.SaveCompanyHandler)
 
-    r.Static("/static", "./static")
-
-    r.GET("/", handlers.IndexHandler)
-    r.GET("/add-company", handlers.AddCompanyHandler)
-    r.GET("/add-recruiter", handlers.AddRecruiterHandler)
-    r.GET("/status", handlers.StatusHandler)
-
-    r.POST("/save-company", handlers.SaveCompanyHandler)
-
-    r.Run(":8090")
+	// Запуск сервера
+	r.Run(":8090")
 }
