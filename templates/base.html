@@ -1,49 +1,11 @@
-{{define "base"}}
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CRM для кандидата</title>
-    <!-- Bootstrap CSS -->
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="/static/styles.css?v=1.0">
+  <meta charset="UTF-8">
+  <title>{{ template "title" . }}</title>
+  {{ template "scripts" }}
 </head>
 <body>
-    <!-- Шапка -->
-    <div class="container-fluid">
-        <div class="row">
-            <!-- Меню -->
-            <nav class="col-md-2 d-none d-md-block bg-light sidebar">
-                <div class="sidebar-sticky">
-                    <ul class="nav flex-column">
-                        <li class="nav-item">
-                            <a class="nav-link" href="/add-company">Добавить компанию</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/add-recruiter">Добавить рекрутера</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/status">Статус</a>
-                        </li>
-                    </ul>
-                </div>
-            </nav>
-
-            <!-- Рабочая область -->
-            <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
-                <div class="content">
-                    {{ template "content" . }}
-                </div>
-            </main>
-        </div>
-    </div>
-
-    <!-- Bootstrap JS and dependencies -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script src="/static/script.js" defer></script>
+{{ template "body" . }}
 </body>
 </html>
-{{end}}
