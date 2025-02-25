@@ -2,51 +2,55 @@ package handlers
 
 import (
 	"crm-candidate/db"
+	"html/template"
 	"net/http"
-
-	"github.com/gin-gonic/gin"
 )
 
-func IndexHandler(c *gin.Context) {
-	c.HTML(http.StatusOK, "base.html", gin.H{
-		"content": "index.html",
-		"message": "Добро пожаловать в CRM для кандидата!",
-	})
+var tmpl = template.Must(template.ParseGlob("templates/*.html"))
+
+func IndexHandler(w http.ResponseWriter, r *http.Request) {
+	data := map[string]interface{}{
+		"content": "Добро пожаловать в CRM для кандидата!",
+	}
+	tmpl.ExecuteTemplate(w, "base.html", data)
 }
 
-func AddCompanyHandler(c *gin.Context) {
-	c.HTML(http.StatusOK, "base.html", gin.H{
+func AddCompanyHandler(w http.ResponseWriter, r *http.Request) {
+	data := map[string]interface{}{
 		"content": "add_company.html",
-		"message": "Добавить компанию",
-	})
+	}
+	tmpl.ExecuteTemplate(w, "base.html", data)
 }
 
-func AddRecruiterHandler(c *gin.Context) {
+func AddRecruiterHandler(w http.ResponseWriter, r *http.Request) {
 	companies, err := db.GetCompanies()
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
-	c.HTML(http.StatusOK, "base.html", gin.H{
+
+	data := map[string]interface{}{
 		"content":   "add_recruiter.html",
 		"Companies": companies,
-	})
+	}
+	tmpl.ExecuteTemplate(w, "base.html", data)
 }
 
-func StatusHandler(c *gin.Context) {
+func StatusHandler(w http.ResponseWriter, r *http.Request) {
 	interactions, err := db.GetInteractions()
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
-	c.HTML(http.StatusOK, "base.html", gin.H{
+
+	data := map[string]interface{}{
 		"content":      "status.html",
-		"message":      "Статус взаимодействий",
 		"Interactions": interactions,
-	})
+	}
+	tmpl.ExecuteTemplate(w, "base.html", data)
 }
 
-func SaveCompanyHandler(c *gin.Context) {
+func SaveCompanyHandler(w http.ResponseWriter, r *http.Request) {
 	// Логика сохранения компании
-	c.Redirect(http.StatusFound, "/add-company")
+	http.Redirect(w, r, "/add-company", http.StatusFound)
 }
