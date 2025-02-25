@@ -9,13 +9,15 @@ import (
 
 func IndexHandler(c *gin.Context) {
 	c.HTML(http.StatusOK, "base.html", gin.H{
-		"content": "Добро пожаловать в CRM для кандидата!",
+		"content": "index.html",
+		"message": "Добро пожаловать в CRM для кандидата!",
 	})
 }
 
 func AddCompanyHandler(c *gin.Context) {
 	c.HTML(http.StatusOK, "base.html", gin.H{
 		"content": "add_company.html",
+		"message": "Добавить компанию",
 	})
 }
 
@@ -25,7 +27,6 @@ func AddRecruiterHandler(c *gin.Context) {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
 	}
-
 	c.HTML(http.StatusOK, "base.html", gin.H{
 		"content":   "add_recruiter.html",
 		"Companies": companies,
@@ -38,9 +39,9 @@ func StatusHandler(c *gin.Context) {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
 	}
-
 	c.HTML(http.StatusOK, "base.html", gin.H{
 		"content":      "status.html",
+		"message":      "Статус взаимодействий",
 		"Interactions": interactions,
 	})
 }
